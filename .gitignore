@@ -1,0 +1,9 @@
+node_modules/
+package-lock.json
+.serverless/
+dist/
+.git/
+.dynamodb/
+.vscode/
+.yarn.lock
+.idea
