@@ -11,4 +11,4 @@ phases:
   post_build:
     commands:
       - npm install -g serverless
-      - serverless -v -s $(echo ${CODEBUILD_INITIATOR} | cut -d'/' -f2 | cut -d'_' -f3) deploy --stage prod
+      - npm run deploy
