@@ -1,10 +1,12 @@
 import { Controller, Get, Post, Req, Body, HttpException, HttpStatus } from '@nestjs/common';
 import { getAllUsers } from './user.repository';
 import { registerUser } from './user.repository';
-import { User } from './user.model';
-import { ValidationPipe } from '../infrastructure/validate.pipe';
 import { getJwtToken } from './user.service';
+import { mapUserDtoToModel } from './user.mappers';
+import { ValidationPipe } from '../infrastructure/validate.pipe';
+import BaseUserDto from './base-user.dto';
 import IToken from './token.interface';
+import ExtendedUserDto from './extended-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -20,7 +22,7 @@ export class UsersController {
     }
 
     @Post()
-    async register(@Body(new ValidationPipe()) user: User): Promise<IToken> {
+    async register(@Body(new ValidationPipe()) user: ExtendedUserDto): Promise<IToken> {
       try {
         await registerUser(user);
         const token = await getJwtToken(user);
@@ -31,7 +33,8 @@ export class UsersController {
     }
 
     @Post('login')
-    async login(@Body(new ValidationPipe()) user: User): Promise<IToken> {
-      return await getJwtToken(user);
+    async login(@Body(new ValidationPipe()) user: BaseUserDto): Promise<IToken> {
+
+      return await getJwtToken(mapUserDtoToModel(user as ExtendedUserDto));
     }
 }
