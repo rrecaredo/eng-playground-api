@@ -11,7 +11,7 @@ export const getJwtToken = async (user: User): Promise<IToken | never> => {
     const isValid = await compare(user.password, existingUser.password);
     
     if (!isValid) throw new NotFoundException();
-    return getToken(user);
+    return getToken(existingUser);
 };
 
 const getToken = (user: User): IToken => {

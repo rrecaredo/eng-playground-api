@@ -1,4 +1,4 @@
-import { AuthResponse } from "aws-lambda";
+import { AuthResponse } from 'aws-lambda';
 
 export const generatePolicy = (principalId: string, effect: string, resource: string, context?: any): any => {
     const authResponse: AuthResponse = {

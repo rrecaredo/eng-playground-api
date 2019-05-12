@@ -35,6 +35,6 @@ export class UsersController {
     @Post('login')
     async login(@Body(new ValidationPipe()) user: BaseUserDto): Promise<IToken> {
 
-      return await getJwtToken(mapUserDtoToModel(user as ExtendedUserDto));
+      return await getJwtToken(mapUserDtoToModel(user));
     }
 }
